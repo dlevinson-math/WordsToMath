@@ -1,139 +1,292 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    p.p3 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
-    p.p7 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {font: 12.0px Times; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
-    span.s3 {font-kerning: none; background-color: #b3b3b3}
-    span.s4 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: rgba(0, 0, 0, 0.85); background-color: #b3b3b3; -webkit-text-stroke: 0px rgba(0, 0, 0, 0.85)}
-    td.td1 {width: 139.4px; margin: 0.5px 0.5px 0.5px 0.5px; padding: 1.0px 1.0px 1.0px 1.0px}
-    td.td2 {width: 6.8px; margin: 0.5px 0.5px 0.5px 0.5px; padding: 1.0px 1.0px 1.0px 1.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mochi Math - Algebra 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+        
+        body {
+            font-family: 'Fredoka One', cursive;
+            background-color: #f0fdf4; /* Light green background */
+            overflow-x: hidden;
+        }
+
+        .kawaii-card {
+            border: 6px solid #1a2e1a;
+            box-shadow: 8px 8px 0px #1a2e1a;
+            background: white;
+            border-radius: 2.5rem;
+        }
+
+        .btn-kawaii {
+            border: 4px solid #1a2e1a;
+            box-shadow: 4px 4px 0px #1a2e1a;
+            transition: all 0.1s;
+        }
+
+        .btn-kawaii:active {
+            box-shadow: 0px 0px 0px #1a2e1a;
+            transform: translate(4px, 4px);
+        }
+
+        /* Mochi Animations */
+        @keyframes mochi-dance {
+            0%, 100% { transform: translateY(0) scale(1, 1); }
+            25% { transform: translateY(-20px) scale(0.9, 1.1) rotate(5deg); }
+            50% { transform: translateY(0) scale(1.1, 0.9); }
+            75% { transform: translateY(-20px) scale(0.9, 1.1) rotate(-5deg); }
+        }
+
+        @keyframes mochi-sad {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-3px) rotate(-1deg); }
+            40% { transform: translateX(3px) rotate(1deg); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+        }
+
+        @keyframes tear-fall {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(40px); opacity: 0; }
+        }
+
+        .animate-dance { animation: mochi-dance 0.8s infinite ease-in-out; }
+        .animate-sad { animation: mochi-sad 0.4s infinite; }
+        .tear { animation: tear-fall 1.5s infinite; }
+
+        .modal-overlay {
+            background: rgba(26, 46, 26, 0.4);
+            backdrop-filter: blur(4px);
+        }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">{\rtf1\ansi\ansicpg1252\cocoartf2867 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;} {\colortbl;\red255\green255\blue255;} {\*\expandedcolortbl;;} \margl1440\margr1440\vieww34000\viewh18300\viewkind0 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0 \f0\fs24 \cf0 \ \ \ \ \ \ \ \ \ \ \</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Times; -webkit-text-stroke: #000000"><span class="s1"><b>Mochi Math Gold</b></span></h1>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p1"><span class="s1">\ \ \ \ \ \ \ \ \ \</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p3"><span class="s1">Translate sentences to make Mochi happy!</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p4"><span class="s2">\ </span><span class="s3">EASY</span></p>
-<p class="p4"><span class="s3">Expressions</span><span class="s2">\ </span><span class="s3">MEDIUM</span></p>
-<p class="p4"><span class="s3">Equations</span><span class="s2">\ </span><span class="s3">HARD</span></p>
-<p class="p4"><span class="s3">Inequalities</span><span class="s2">\</span></p>
-<p class="p4"><span class="s2">\ \ </span><span class="s3">Translation Guide</span><span class="s2">\</span></p>
-<p class="p1"><span class="s1">\ \ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p4"><span class="s2">\ </span><span class="s3">Back</span><span class="s2">\</span></p>
-<p class="p1"><span class="s1">Gold: 0</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p5"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p3"><span class="s1">Sentence:</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Times; -webkit-text-stroke: #000000; min-height: 23.0px"><span class="s1"><b></b></span><br></h2>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p4"><span class="s2">\ </span><span class="s3">Submit</span><span class="s2">\ </span><span class="s3">?</span><span class="s2">\</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p5"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">\ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p5"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \ \</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ </span><span class="s4">×</span><span class="s1">\</span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times; -webkit-text-stroke: #000000"><span class="s1"><b>Translation Tips</b></span></h3>
-<p class="p1"><span class="s1">\ \ \ \ \ \ \ \ \ \ \ \</span></p>
-<table cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">Sum, Added to, More than</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">+</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">Difference, Minus, Less than</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">-</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">Product, Times, Of</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">×</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">Quotient, Divided by, Ratio</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">÷</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">Is, Equals, Results in</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">=</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">At most, No more than</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">≤</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">At least, No less than</span></p>
-      </td>
-      <td valign="middle" class="td2">
-        <p class="p1"><span class="s1">≥</span></p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p3"><span class="s1">\ \uc0\u55357 \u56481 <b>Pro Tip:</b> "Less than" and "Subtracted from" flip the order. <br>
-\ <i>Example: "5 less than x" becomes "x - 5".</i>\</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\</span></p>
-<p class="p1"><span class="s1">\ \ \ \ }</span></p>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="game-container" class="w-full max-w-2xl">
+        <!-- Start Screen -->
+        <div id="start-screen" class="kawaii-card p-8 text-center space-y-6">
+            <h1 class="text-5xl text-green-600 mb-4 drop-shadow-sm uppercase tracking-tight">Mochi Math Gold</h1>
+            
+            <div id="hero-mochi" class="inline-block py-4">
+                <!-- Static Mochi for Menu -->
+                <svg width="180" height="150" viewBox="0 0 120 100">
+                    <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#86efac" stroke="#1a2e1a" stroke-width="4"/>
+                    <circle cx="40" cy="55" r="4" fill="#1a2e1a"/>
+                    <circle cx="80" cy="55" r="4" fill="#1a2e1a"/>
+                    <path d="M50,70 Q60,80 70,70" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="30" cy="65" r="6" fill="#fecaca" opacity="0.6"/>
+                    <circle cx="90" cy="65" r="6" fill="#fecaca" opacity="0.6"/>
+                </svg>
+            </div>
+
+            <p class="text-xl text-green-800">Translate sentences to make Mochi happy!</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                <button onclick="startGame('easy')" class="btn-kawaii bg-green-400 p-4 rounded-3xl text-white hover:bg-green-500">EASY<br><span class="text-xs">Expressions</span></button>
+                <button onclick="startGame('medium')" class="btn-kawaii bg-emerald-500 p-4 rounded-3xl text-white hover:bg-emerald-600">MEDIUM<br><span class="text-xs">Equations</span></button>
+                <button onclick="startGame('hard')" class="btn-kawaii bg-teal-600 p-4 rounded-3xl text-white hover:bg-teal-700">HARD<br><span class="text-xs">Inequalities</span></button>
+            </div>
+
+            <button onclick="toggleTips()" class="text-green-700 underline text-sm mt-4 block mx-auto">Translation Guide</button>
+        </div>
+
+        <!-- Gameplay Screen -->
+        <div id="game-screen" class="kawaii-card p-8 hidden relative overflow-hidden">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="showMenu()" class="btn-kawaii bg-gray-100 px-4 py-2 rounded-2xl text-xs font-bold uppercase">Back</button>
+                <div class="text-2xl text-green-700">Gold: <span id="score" class="text-green-500">0</span></div>
+                <div id="difficulty-badge" class="px-4 py-1 bg-green-100 rounded-full border-2 border-black text-xs uppercase font-bold"></div>
+            </div>
+
+            <div class="text-center mb-10">
+                <p class="text-gray-400 text-xs mb-2 uppercase tracking-widest font-bold">Sentence:</p>
+                <h2 id="sentence" class="text-3xl text-green-800 leading-tight min-h-[4rem]"></h2>
+            </div>
+
+            <div class="max-w-md mx-auto space-y-4">
+                <input type="text" id="math-input" placeholder="Enter math expression..." 
+                    class="w-full text-center text-2xl p-5 border-4 border-black rounded-3xl focus:outline-none focus:ring-8 focus:ring-green-100"
+                    autocomplete="off">
+                <div class="flex gap-3">
+                    <button onclick="checkAnswer()" class="flex-grow btn-kawaii bg-green-500 text-white p-4 rounded-3xl text-2xl hover:bg-green-600 uppercase font-bold tracking-wide">Submit</button>
+                    <button onclick="toggleTips()" class="btn-kawaii bg-emerald-400 text-white px-6 rounded-3xl text-3xl" title="Help">?</button>
+                </div>
+            </div>
+
+            <!-- Feedback Overlay -->
+            <div id="feedback-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden z-50 p-8 text-center">
+                <div id="mochi-feedback-container" class="w-64 h-48 flex items-center justify-center"></div>
+                
+                <div class="relative bg-white border-4 border-black p-5 rounded-3xl text-center my-6 max-w-xs">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-t-4 border-l-4 border-black rotate-45"></div>
+                    <p id="feedback-text" class="text-xl font-bold text-green-800"></p>
+                </div>
+                
+                <button id="next-btn" onclick="nextLevel()" class="btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-green-500 text-white"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Modal -->
+    <div id="tips-modal" class="fixed inset-0 modal-overlay flex items-center justify-center hidden z-[100] p-4">
+        <div class="kawaii-card w-full max-w-lg max-h-[90vh] overflow-y-auto p-8 relative">
+            <button onclick="toggleTips()" class="absolute top-4 right-6 text-4xl text-gray-400 hover:text-black">&times;</button>
+            <h3 class="text-3xl text-green-600 mb-6 text-center">Translation Tips</h3>
+            
+            <table class="w-full text-left border-collapse">
+                <tbody class="text-sm">
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Sum, Added to, More than</td><td class="py-3 text-right text-xl text-green-600">+</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Difference, Minus, Less than</td><td class="py-3 text-right text-xl text-red-400">-</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Product, Times, Of</td><td class="py-3 text-right text-xl text-blue-400">&times;</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Quotient, Divided by, Ratio</td><td class="py-3 text-right text-xl text-purple-400">&divide;</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Is, Equals, Results in</td><td class="py-3 text-right text-xl text-emerald-600">=</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">At most, No more than</td><td class="py-3 text-right text-xl font-mono text-gray-700">&le;</td></tr>
+                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">At least, No less than</td><td class="py-3 text-right text-xl font-mono text-gray-700">&ge;</td></tr>
+                </tbody>
+            </table>
+            <p class="mt-6 p-4 bg-green-50 rounded-2xl text-xs text-green-800 border-2 border-green-200">
+                💡 <b>Pro Tip:</b> "Less than" and "Subtracted from" flip the order. <br>
+                <i>Example: "5 less than x" becomes "x - 5".</i>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const levels = {
+            easy: [
+                { s: "the sum of a number and five", a: ["x+5", "5+x"] },
+                { s: "six more than double a number", a: ["2x+6", "6+2x"] },
+                { s: "the product of three and a quantity", a: ["3x", "3*x"] },
+                { s: "a number decreased by ten", a: ["x-10"] },
+                { s: "the quotient of a number and four", a: ["x/4"] },
+                { s: "twice the sum of a number and three", a: ["2(x+3)", "2*(x+3)"] }
+            ],
+            medium: [
+                { s: "the result of a number plus seven is twelve", a: ["x+7=12", "7+x=12"] },
+                { s: "triple a number minus four equals twenty", a: ["3x-4=20"] },
+                { s: "a number divided by two is equal to eight", a: ["x/2=8", "0.5x=8"] },
+                { s: "ten subtracted from a quantity becomes fifteen", a: ["x-10=15"] },
+                { s: "the difference of five and a number is negative three", a: ["5-x=-3"] }
+            ],
+            hard: [
+                { s: "a number increased by two is at most ten", a: ["x+2<=10"] },
+                { s: "half a number is greater than twelve", a: ["x/2>12", "0.5x>12"] },
+                { s: "four times a number plus one is less than five", a: ["4x+1<5"] },
+                { s: "the ratio of a number and three is at least six", a: ["x/3>=6"] },
+                { s: "twice a quantity decreased by eight is no more than four", a: ["2x-8<=4"] }
+            ]
+        };
+
+        let currentDifficulty = 'easy';
+        let levelIndex = 0;
+        let score = 0;
+
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const mathInput = document.getElementById('math-input');
+        const feedbackOverlay = document.getElementById('feedback-overlay');
+        const tipsModal = document.getElementById('tips-modal');
+
+        function toggleTips() { tipsModal.classList.toggle('hidden'); }
+        function showMenu() { gameScreen.classList.add('hidden'); startScreen.classList.remove('hidden'); }
+
+        function startGame(diff) {
+            currentDifficulty = diff;
+            levelIndex = 0;
+            score = 0;
+            updateScore();
+            startScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            document.getElementById('difficulty-badge').innerText = diff;
+            loadLevel();
+        }
+
+        function loadLevel() {
+            const list = levels[currentDifficulty];
+            if (levelIndex >= list.length) levelIndex = 0;
+            document.getElementById('sentence').innerText = `"${list[levelIndex].s}"`;
+            mathInput.value = '';
+            feedbackOverlay.classList.add('hidden');
+            setTimeout(() => mathInput.focus(), 100);
+        }
+
+        function updateScore() { document.getElementById('score').innerText = score; }
+
+        function normalize(str) {
+            return str.toLowerCase().replace(/\s+/g, '').replace(/[\*]/g, '').replace(/<=/g, '≤').replace(/>=/g, '≥');
+        }
+
+        function checkAnswer() {
+            const current = levels[currentDifficulty][levelIndex];
+            const val = normalize(mathInput.value);
+            const isCorrect = current.a.some(ans => normalize(ans) === val);
+            showFeedback(isCorrect);
+        }
+
+        function showFeedback(correct) {
+            feedbackOverlay.classList.remove('hidden');
+            const container = document.getElementById('mochi-feedback-container');
+            const text = document.getElementById('feedback-text');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (correct) {
+                score += 10;
+                updateScore();
+                text.innerText = "Success! You are a hero and I love you.";
+                nextBtn.innerText = "YAY! MORE!";
+                nextBtn.className = "btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-green-500 text-white";
+                
+                container.innerHTML = `
+                    <div class="animate-dance">
+                        <svg width="150" height="120" viewBox="0 0 120 100">
+                            <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#86efac" stroke="#1a2e1a" stroke-width="4"/>
+                            <path d="M35,50 Q40,40 45,50" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M75,50 Q80,40 85,50" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M50,70 Q60,85 70,70" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="30" cy="65" r="7" fill="#fecaca" opacity="0.8"/>
+                            <circle cx="90" cy="65" r="7" fill="#fecaca" opacity="0.8"/>
+                        </svg>
+                    </div>
+                `;
+            } else {
+                text.innerText = "Oh no... I'm a bit sad. Let's try again?";
+                nextBtn.innerText = "I WILL FIX IT!";
+                nextBtn.className = "btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-gray-500 text-white";
+                
+                container.innerHTML = `
+                    <div class="animate-sad relative">
+                        <svg width="150" height="120" viewBox="0 0 120 100">
+                            <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#bbf7d0" stroke="#1a2e1a" stroke-width="4"/>
+                            <path d="M35,55 L45,45 M35,45 L45,55" fill="none" stroke="#1a2e1a" stroke-width="2"/>
+                            <path d="M75,55 L85,45 M75,45 L85,55" fill="none" stroke="#1a2e1a" stroke-width="2"/>
+                            <path d="M50,75 Q60,65 70,75" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Tears -->
+                            <circle cx="35" cy="65" r="3" fill="#60a5fa" class="tear"/>
+                            <circle cx="85" cy="65" r="3" fill="#60a5fa" class="tear" style="animation-delay: 0.5s"/>
+                        </svg>
+                    </div>
+                `;
+            }
+        }
+
+        function nextLevel() {
+            const current = levels[currentDifficulty][levelIndex];
+            const val = normalize(mathInput.value);
+            const isCorrect = current.a.some(ans => normalize(ans) === val);
+            if (isCorrect) levelIndex++;
+            loadLevel();
+        }
+
+        mathInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (feedbackOverlay.classList.contains('hidden')) checkAnswer();
+                else nextLevel();
+            }
+        });
+    </script>
 </body>
 </html>
