@@ -2,187 +2,306 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mochi Math - Algebra 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap');
         
         body {
             font-family: 'Fredoka One', cursive;
-            background-color: #f0fdf4; /* Light green background */
+            background: linear-gradient(135deg, #fdf4ff, #ecfdf5, #fffbeb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .kawaii-card {
-            border: 6px solid #1a2e1a;
-            box-shadow: 8px 8px 0px #1a2e1a;
-            background: white;
+            border: 6px solid #2d3748;
+            box-shadow: 8px 8px 0px #2d3748;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 2.5rem;
+            backdrop-filter: blur(10px);
         }
 
         .btn-kawaii {
-            border: 4px solid #1a2e1a;
-            box-shadow: 4px 4px 0px #1a2e1a;
-            transition: all 0.1s;
+            border: 4px solid #2d3748;
+            box-shadow: 4px 4px 0px #2d3748;
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-kawaii:active {
-            box-shadow: 0px 0px 0px #1a2e1a;
+            box-shadow: 0px 0px 0px #2d3748;
             transform: translate(4px, 4px);
         }
 
-        /* Mochi Animations */
-        @keyframes mochi-dance {
+        .btn-math {
+            font-family: 'Nunito', sans-serif;
+            background: #fdf2f8;
+            border: 3px solid #2d3748;
+            box-shadow: 0px 4px 0px #2d3748;
+            border-radius: 1rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #db2777;
+            transition: all 0.1s;
+        }
+
+        .btn-math:active {
+            box-shadow: 0px 0px 0px #2d3748;
+            transform: translate(0px, 4px);
+            background: #fbcfe8;
+        }
+
+        /* Whimsical Animations */
+        @keyframes mochi-bounce {
             0%, 100% { transform: translateY(0) scale(1, 1); }
-            25% { transform: translateY(-20px) scale(0.9, 1.1) rotate(5deg); }
-            50% { transform: translateY(0) scale(1.1, 0.9); }
-            75% { transform: translateY(-20px) scale(0.9, 1.1) rotate(-5deg); }
+            40% { transform: translateY(-25px) scale(0.9, 1.1); }
+            60% { transform: translateY(5px) scale(1.1, 0.9); }
+        }
+
+        @keyframes mochi-wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg) scale(1.05); }
+            75% { transform: rotate(-10deg) scale(1.05); }
         }
 
         @keyframes mochi-sad {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-3px) rotate(-1deg); }
-            40% { transform: translateX(3px) rotate(1deg); }
-            60% { transform: translateX(-2px); }
-            80% { transform: translateX(2px); }
+            0%, 100% { transform: translateX(0) scale(1); }
+            25% { transform: translateX(-4px) scale(0.98); }
+            75% { transform: translateX(4px) scale(0.98); }
         }
 
         @keyframes tear-fall {
-            0% { transform: translateY(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(40px); opacity: 0; }
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 1; transform: translateY(10px) scale(1.1); }
+            100% { transform: translateY(40px) scale(0.7); opacity: 0; }
         }
 
-        .animate-dance { animation: mochi-dance 0.8s infinite ease-in-out; }
-        .animate-sad { animation: mochi-sad 0.4s infinite; }
-        .tear { animation: tear-fall 1.5s infinite; }
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .animate-bounce-whimsy { animation: mochi-bounce 1s infinite ease-in-out; }
+        .animate-wiggle { animation: mochi-wiggle 1.5s infinite ease-in-out; }
+        .animate-sad { animation: mochi-sad 0.5s infinite; }
+        .tear { animation: tear-fall 1.2s infinite ease-in; }
+
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 2rem;
+            animation: float-particle 10s linear infinite;
+            opacity: 0;
+        }
 
         .modal-overlay {
-            background: rgba(26, 46, 26, 0.4);
-            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        input[type="text"] {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-2 sm:p-4">
 
-    <div id="game-container" class="w-full max-w-2xl">
+    <!-- Whimsical Background Particles -->
+    <div class="bg-particles" id="particles-container"></div>
+
+    <div id="game-container" class="w-full max-w-2xl z-10">
         <!-- Start Screen -->
-        <div id="start-screen" class="kawaii-card p-8 text-center space-y-6">
-            <h1 class="text-5xl text-green-600 mb-4 drop-shadow-sm uppercase tracking-tight">Mochi Math Gold</h1>
+        <div id="start-screen" class="kawaii-card p-6 sm:p-8 text-center space-y-6">
+            <h1 class="text-4xl sm:text-5xl text-pink-500 mb-2 drop-shadow-sm uppercase tracking-tight">Mochi Math</h1>
+            <h2 class="text-xl text-indigo-400 font-sans font-bold mb-6">✨ Algebra Adventure ✨</h2>
             
-            <div id="hero-mochi" class="inline-block py-4">
-                <!-- Static Mochi for Menu -->
+            <div id="hero-mochi" class="inline-block py-4 animate-bounce-whimsy">
+                <!-- Main Mochi Hero -->
                 <svg width="180" height="150" viewBox="0 0 120 100">
-                    <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#86efac" stroke="#1a2e1a" stroke-width="4"/>
-                    <circle cx="40" cy="55" r="4" fill="#1a2e1a"/>
-                    <circle cx="80" cy="55" r="4" fill="#1a2e1a"/>
-                    <path d="M50,70 Q60,80 70,70" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="30" cy="65" r="6" fill="#fecaca" opacity="0.6"/>
-                    <circle cx="90" cy="65" r="6" fill="#fecaca" opacity="0.6"/>
+                    <path d="M10,80 C10,10 110,10 110,80 C110,100 10,100 10,80 Z" fill="#fde047" stroke="#4c1d95" stroke-width="3"/>
+                    <ellipse cx="60" cy="20" rx="30" ry="8" fill="#ffffff" opacity="0.6"/>
+                    <ellipse cx="40" cy="55" rx="10" ry="14" fill="#4c1d95"/>
+                    <circle cx="37" cy="48" r="4" fill="#ffffff"/> <circle cx="43" cy="58" r="2" fill="#ffffff"/>
+                    <ellipse cx="80" cy="55" rx="10" ry="14" fill="#4c1d95"/>
+                    <circle cx="77" cy="48" r="4" fill="#ffffff"/> <circle cx="83" cy="58" r="2" fill="#ffffff"/>
+                    <path d="M52,65 Q60,80 68,65 Z" fill="#fb7185" stroke="#4c1d95" stroke-width="2"/>
+                    <circle cx="25" cy="65" r="9" fill="#f43f5e" opacity="0.8"/>
+                    <circle cx="95" cy="65" r="9" fill="#f43f5e" opacity="0.8"/>
                 </svg>
             </div>
 
-            <p class="text-xl text-green-800">Translate sentences to make Mochi happy!</p>
+            <p class="text-lg text-gray-700">Translate sentences to make the Mochis happy!</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                <button onclick="startGame('easy')" class="btn-kawaii bg-green-400 p-4 rounded-3xl text-white hover:bg-green-500">EASY<br><span class="text-xs">Expressions</span></button>
-                <button onclick="startGame('medium')" class="btn-kawaii bg-emerald-500 p-4 rounded-3xl text-white hover:bg-emerald-600">MEDIUM<br><span class="text-xs">Equations</span></button>
-                <button onclick="startGame('hard')" class="btn-kawaii bg-teal-600 p-4 rounded-3xl text-white hover:bg-teal-700">HARD<br><span class="text-xs">Inequalities</span></button>
+                <button onclick="startGame('easy')" class="btn-kawaii bg-green-400 p-4 rounded-3xl text-white hover:bg-green-500 text-xl">EASY<br><span class="text-xs font-sans">Expressions</span></button>
+                <button onclick="startGame('medium')" class="btn-kawaii bg-yellow-400 p-4 rounded-3xl text-white hover:bg-yellow-500 text-xl">MEDIUM<br><span class="text-xs font-sans">Equations</span></button>
+                <button onclick="startGame('hard')" class="btn-kawaii bg-pink-500 p-4 rounded-3xl text-white hover:bg-pink-600 text-xl">HARD<br><span class="text-xs font-sans">Inequalities</span></button>
             </div>
 
-            <button onclick="toggleTips()" class="text-green-700 underline text-sm mt-4 block mx-auto">Translation Guide</button>
+            <button onclick="toggleTips()" class="text-indigo-500 hover:text-indigo-700 font-bold underline text-sm mt-4 block mx-auto transition-colors">📖 Translation Guide</button>
         </div>
 
         <!-- Gameplay Screen -->
-        <div id="game-screen" class="kawaii-card p-8 hidden relative overflow-hidden">
-            <div class="flex justify-between items-center mb-6">
-                <button onclick="showMenu()" class="btn-kawaii bg-gray-100 px-4 py-2 rounded-2xl text-xs font-bold uppercase">Back</button>
-                <div class="text-2xl text-green-700">Gold: <span id="score" class="text-green-500">0</span></div>
-                <div id="difficulty-badge" class="px-4 py-1 bg-green-100 rounded-full border-2 border-black text-xs uppercase font-bold"></div>
+        <div id="game-screen" class="kawaii-card p-4 sm:p-8 hidden relative flex flex-col h-[95vh] sm:h-auto max-h-[900px]">
+            <div class="flex justify-between items-center mb-4 sm:mb-6">
+                <button onclick="showMenu()" class="btn-kawaii bg-gray-100 px-3 py-2 rounded-2xl text-xs font-bold uppercase text-gray-600">◀ Menu</button>
+                <div class="text-xl sm:text-2xl text-pink-500">Score: <span id="score" class="font-bold">0</span></div>
+                <div id="difficulty-badge" class="px-3 py-1 bg-indigo-100 rounded-full border-2 border-black text-xs uppercase font-bold text-indigo-700"></div>
             </div>
 
-            <div class="text-center mb-10">
-                <p class="text-gray-400 text-xs mb-2 uppercase tracking-widest font-bold">Sentence:</p>
-                <h2 id="sentence" class="text-3xl text-green-800 leading-tight min-h-[4rem]"></h2>
+            <div class="text-center mb-6 flex-grow flex flex-col justify-center">
+                <p class="text-gray-400 text-xs sm:text-sm mb-2 uppercase tracking-widest font-bold">Translate this:</p>
+                <h2 id="sentence" class="text-2xl sm:text-3xl text-indigo-800 leading-tight font-sans font-bold px-2"></h2>
             </div>
 
-            <div class="max-w-md mx-auto space-y-4">
-                <input type="text" id="math-input" placeholder="Enter math expression..." 
-                    class="w-full text-center text-2xl p-5 border-4 border-black rounded-3xl focus:outline-none focus:ring-8 focus:ring-green-100"
-                    autocomplete="off">
-                <div class="flex gap-3">
-                    <button onclick="checkAnswer()" class="flex-grow btn-kawaii bg-green-500 text-white p-4 rounded-3xl text-2xl hover:bg-green-600 uppercase font-bold tracking-wide">Submit</button>
-                    <button onclick="toggleTips()" class="btn-kawaii bg-emerald-400 text-white px-6 rounded-3xl text-3xl" title="Help">?</button>
+            <div class="w-full max-w-md mx-auto space-y-4">
+                <div class="flex gap-2 relative">
+                    <input type="text" id="math-input" placeholder="Type here..." inputmode="text"
+                        class="w-full text-center text-3xl p-4 border-4 border-black rounded-3xl focus:outline-none focus:ring-8 focus:ring-pink-100"
+                        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <button onclick="clearInput()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-500 text-2xl font-bold">&times;</button>
+                </div>
+
+                <!-- Custom Math Keyboard -->
+                <div class="grid grid-cols-5 gap-2 sm:gap-3 p-2 bg-indigo-50 rounded-3xl border-4 border-indigo-100">
+                    <button class="btn-math py-2" onclick="insertMath('x')">x</button>
+                    <button class="btn-math py-2" onclick="insertMath('+')">+</button>
+                    <button class="btn-math py-2" onclick="insertMath('-')">-</button>
+                    <button class="btn-math py-2" onclick="insertMath('*')">&times;</button>
+                    <button class="btn-math py-2" onclick="insertMath('/')">&divide;</button>
+                    <button class="btn-math py-2" onclick="insertMath('=')">=</button>
+                    <button class="btn-math py-2" onclick="insertMath('<')"><</button>
+                    <button class="btn-math py-2" onclick="insertMath('>')">></button>
+                    <button class="btn-math py-2 text-sm" onclick="insertMath('≤')">&le;</button>
+                    <button class="btn-math py-2 text-sm" onclick="insertMath('≥')">&ge;</button>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button onclick="checkAnswer()" class="flex-grow btn-kawaii bg-pink-500 text-white p-4 rounded-3xl text-2xl hover:bg-pink-600 uppercase tracking-widest active:bg-pink-700">Submit</button>
+                    <button onclick="toggleTips()" class="btn-kawaii bg-indigo-400 text-white px-6 rounded-3xl text-2xl" title="Help">❓</button>
                 </div>
             </div>
 
             <!-- Feedback Overlay -->
-            <div id="feedback-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden z-50 p-8 text-center">
-                <div id="mochi-feedback-container" class="w-64 h-48 flex items-center justify-center"></div>
+            <div id="feedback-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden z-50 p-4 sm:p-8 text-center backdrop-blur-sm overflow-y-auto">
+                <div id="mochi-feedback-container" class="w-48 h-36 sm:w-56 sm:h-48 flex items-center justify-center mb-2 mt-4 flex-shrink-0"></div>
                 
-                <div class="relative bg-white border-4 border-black p-5 rounded-3xl text-center my-6 max-w-xs">
+                <div class="relative bg-white border-4 border-black p-4 sm:p-5 rounded-3xl text-center my-2 max-w-sm w-full shadow-[8px_8px_0px_rgba(0,0,0,1)] flex-shrink-0">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-t-4 border-l-4 border-black rotate-45"></div>
-                    <p id="feedback-text" class="text-xl font-bold text-green-800"></p>
+                    <p id="feedback-text" class="text-lg sm:text-xl font-bold"></p>
+                    
+                    <!-- Dynamic Breakdown Container -->
+                    <div id="breakdown-wrapper"></div>
                 </div>
                 
-                <button id="next-btn" onclick="nextLevel()" class="btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-green-500 text-white"></button>
+                <button id="next-btn" onclick="nextLevel()" class="btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] flex-shrink-0"></button>
             </div>
         </div>
     </div>
 
     <!-- Tips Modal -->
     <div id="tips-modal" class="fixed inset-0 modal-overlay flex items-center justify-center hidden z-[100] p-4">
-        <div class="kawaii-card w-full max-w-lg max-h-[90vh] overflow-y-auto p-8 relative">
-            <button onclick="toggleTips()" class="absolute top-4 right-6 text-4xl text-gray-400 hover:text-black">&times;</button>
-            <h3 class="text-3xl text-green-600 mb-6 text-center">Translation Tips</h3>
+        <div class="kawaii-card w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 relative bg-white">
+            <button onclick="toggleTips()" class="absolute top-4 right-4 w-10 h-10 bg-gray-200 rounded-full text-2xl font-bold text-gray-600 hover:bg-pink-500 hover:text-white transition-colors">&times;</button>
+            <h3 class="text-3xl text-indigo-600 mb-6 text-center">Translation Guide ✨</h3>
             
-            <table class="w-full text-left border-collapse">
-                <tbody class="text-sm">
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Sum, Added to, More than</td><td class="py-3 text-right text-xl text-green-600">+</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Difference, Minus, Less than</td><td class="py-3 text-right text-xl text-red-400">-</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Product, Times, Of</td><td class="py-3 text-right text-xl text-blue-400">&times;</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Quotient, Divided by, Ratio</td><td class="py-3 text-right text-xl text-purple-400">&divide;</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">Is, Equals, Results in</td><td class="py-3 text-right text-xl text-emerald-600">=</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">At most, No more than</td><td class="py-3 text-right text-xl font-mono text-gray-700">&le;</td></tr>
-                    <tr class="border-b-2 border-gray-100"><td class="py-3 font-bold">At least, No less than</td><td class="py-3 text-right text-xl font-mono text-gray-700">&ge;</td></tr>
-                </tbody>
-            </table>
-            <p class="mt-6 p-4 bg-green-50 rounded-2xl text-xs text-green-800 border-2 border-green-200">
-                💡 <b>Pro Tip:</b> "Less than" and "Subtracted from" flip the order. <br>
-                <i>Example: "5 less than x" becomes "x - 5".</i>
+            <div class="bg-indigo-50 rounded-2xl p-4 border-4 border-indigo-100">
+                <table class="w-full text-left border-collapse">
+                    <tbody class="text-sm font-sans font-bold text-gray-700">
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">Sum, Added to, More than</td><td class="py-2 text-right text-2xl text-pink-500">+</td></tr>
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">Difference, Minus, Less than</td><td class="py-2 text-right text-2xl text-blue-500">-</td></tr>
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">Product, Times, Of</td><td class="py-2 text-right text-2xl text-purple-500">&times;</td></tr>
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">Quotient, Divided by, Quarter</td><td class="py-2 text-right text-2xl text-yellow-500">&divide;</td></tr>
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">Is, Equals, Results in</td><td class="py-2 text-right text-2xl text-green-500">=</td></tr>
+                        <tr class="border-b-2 border-indigo-100"><td class="py-2">At most, No more than</td><td class="py-2 text-right text-2xl text-gray-800">&le;</td></tr>
+                        <tr><td class="py-2">At least, No less than</td><td class="py-2 text-right text-2xl text-gray-800">&ge;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-4 p-4 bg-pink-50 rounded-2xl text-sm text-pink-800 border-2 border-pink-200 font-sans font-bold text-center">
+                💡 <b>Pro Tip:</b> "Less than" and "Subtracted from" flip the order! <br>
+                <span class="text-indigo-600">"5 less than x" becomes "x - 5"</span>
             </p>
         </div>
     </div>
 
     <script>
-        const levels = {
+        // --- Whimsical Background Setup ---
+        const emojis = ['✨', '🫧', '🍡', '🌸', '⭐', '☁️', '🎀'];
+        const container = document.getElementById('particles-container');
+        for(let i=0; i<15; i++) {
+            let el = document.createElement('div');
+            el.className = 'particle';
+            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            el.style.left = `${Math.random() * 100}vw`;
+            el.style.animationDuration = `${8 + Math.random() * 10}s`;
+            el.style.animationDelay = `${Math.random() * 10}s`;
+            el.style.fontSize = `${1 + Math.random() * 2}rem`;
+            container.appendChild(el);
+        }
+
+        // --- Number to Word Converter ---
+        const ones = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+        const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+        function numToWord(n) {
+            if (n < 20) return ones[n];
+            if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 === 0 ? "" : "-" + ones[n % 10]);
+            return n.toString();
+        }
+
+        function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+        // --- Procedural Question Generator with 3-Part Breakdowns ---
+        const generators = {
             easy: [
-                { s: "the sum of a number and five", a: ["x+5", "5+x"] },
-                { s: "six more than double a number", a: ["2x+6", "6+2x"] },
-                { s: "the product of three and a quantity", a: ["3x", "3*x"] },
-                { s: "a number decreased by ten", a: ["x-10"] },
-                { s: "the quotient of a number and four", a: ["x/4"] },
-                { s: "twice the sum of a number and three", a: ["2(x+3)", "2*(x+3)"] }
-            ],
-            medium: [
-                { s: "the result of a number plus seven is twelve", a: ["x+7=12", "7+x=12"] },
-                { s: "triple a number minus four equals twenty", a: ["3x-4=20"] },
-                { s: "a number divided by two is equal to eight", a: ["x/2=8", "0.5x=8"] },
-                { s: "ten subtracted from a quantity becomes fifteen", a: ["x-10=15"] },
-                { s: "the difference of five and a number is negative three", a: ["5-x=-3"] }
+                () => { let n = randInt(2, 20); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "less than", sym: "-"}, {text: "a number", sym: "x"}], a: [`x-${n}`], final: `x - ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: "the sum of a number", sym: "x"}, {text: "and", sym: "+"}, {text: numToWord(n), sym: n.toString()}], a: [`x+${n}`, `${n}+x`], final: `x + ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: "a quantity", sym: "x"}, {text: "less", sym: "-"}, {text: numToWord(n), sym: n.toString()}], a: [`x-${n}`], final: `x - ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "more than", sym: "+"}, {text: "a number", sym: "x"}], a: [`x+${n}`, `${n}+x`], final: `x + ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: "a number", sym: "x"}, {text: "plus", sym: "+"}, {text: numToWord(n), sym: n.toString()}], a: [`x+${n}`, `${n}+x`], final: `x + ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: "negative "+numToWord(n), sym: `-${n}`}, {text: "plus", sym: "+"}, {text: "an unknown", sym: "x"}], a: [`-${n}+x`, `x-${n}`], final: `-${n} + x` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "added to", sym: "+"}, {text: "twice a number", sym: "2x"}], a: [`2x+${n}`, `${n}+2x`], final: `2x + ${n}` }; },
+                () => { let n = randInt(20, 99); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "is subtracted from", sym: "-"}, {text: "some quantity", sym: "x"}], a: [`x-${n}`], final: `x - ${n}` }; },
+            () => { return { parts: [{text: "a quarter", sym: "1/4"}, {text: "of", sym: "*"}, {text: "a number", sym: "x"}], a: [`1/4x`, `x/4`, `0.25x`, `(1/4)x`], final: `1/4 x` }; }
+        ],
+        medium: [
+            () => { let n = randInt(2, 20); return { parts: [{text: "twice a number", sym: "2x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`2x=${n}`], final: `2x = ${n}` }; },
+            () => { let n = randInt(2, 50); return { parts: [{text: "four ninths of a number", sym: "4/9x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`4/9x=${n}`, `(4/9)x=${n}`, `4x/9=${n}`], final: `4/9x = ${n}` }; },
+            () => { let n = randInt(2, 20); return { parts: [{text: "three times a number", sym: "3x"}, {text: "is", sym: "="}, {text: `${numToWord(n)} more than twice the number`, sym: `2x + ${n}`}], a: [`3x=2x+${n}`, `3x=${n}+2x`], final: `3x = 2x + ${n}` }; },
+                () => { let n1 = randInt(2, 20), n2 = randInt(20, 99); return { parts: [{text: `ten times a number less ${numToWord(n1)}`, sym: `10x - ${n1}`}, {text: "results in", sym: "="}, {text: numToWord(n2), sym: n2.toString()}], a: [`10x-${n1}=${n2}`], final: `10x - ${n1} = ${n2}` }; },
+                () => { let n = randInt(10, 99); return { parts: [{text: "a number divided by four", sym: "x/4"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`x/4=${n}`], final: `x/4 = ${n}` }; }
             ],
             hard: [
-                { s: "a number increased by two is at most ten", a: ["x+2<=10"] },
-                { s: "half a number is greater than twelve", a: ["x/2>12", "0.5x>12"] },
-                { s: "four times a number plus one is less than five", a: ["4x+1<5"] },
-                { s: "the ratio of a number and three is at least six", a: ["x/3>=6"] },
-                { s: "twice a quantity decreased by eight is no more than four", a: ["2x-8<=4"] }
+            () => { let n1 = randInt(2, 20), n2 = randInt(10, 50); return { parts: [{text: `a number increased by ${numToWord(n1)}`, sym: `x + ${n1}`}, {text: "is at most", sym: "≤"}, {text: numToWord(n2), sym: n2.toString()}], a: [`x+${n1}<=${n2}`, `x+${n1}≤${n2}`, `${n1}+x<=${n2}`, `${n1}+x≤${n2}`], final: `x + ${n1} ≤ ${n2}` }; },
+            () => { let n = randInt(10, 99); return { parts: [{text: "half a number", sym: "x/2"}, {text: "is greater than", sym: ">"}, {text: numToWord(n), sym: n.toString()}], a: [`x/2>${n}`, `0.5x>${n}`, `1/2x>${n}`, `(1/2)x>${n}`], final: `x/2 > ${n}` }; },
+            () => { let n1 = randInt(2, 20), n2 = randInt(5, 50); return { parts: [{text: `four times a number plus ${numToWord(n1)}`, sym: `4x + ${n1}`}, {text: "is less than", sym: "<"}, {text: numToWord(n2), sym: n2.toString()}], a: [`4x+${n1}<${n2}`], final: `4x + ${n1} < ${n2}` }; },
+                () => { let n = randInt(5, 30); return { parts: [{text: "the ratio of a number and three", sym: "x/3"}, {text: "is at least", sym: "≥"}, {text: numToWord(n), sym: n.toString()}], a: [`x/3>=${n}`, `x/3≥${n}`], final: `x/3 ≥ ${n}` }; },
+                () => { let n1 = randInt(2, 20), n2 = randInt(5, 25); return { parts: [{text: `the difference of a number and ${numToWord(n1)}`, sym: `x - ${n1}`}, {text: "is less than", sym: "<"}, {text: numToWord(n2), sym: n2.toString()}], a: [`x-${n1}<${n2}`], final: `x - ${n1} < ${n2}` }; }
             ]
         };
 
+        // --- Game Logic ---
         let currentDifficulty = 'easy';
-        let levelIndex = 0;
+        let currentQuestion = null;
         let score = 0;
 
         const startScreen = document.getElementById('start-screen');
@@ -190,13 +309,23 @@
         const mathInput = document.getElementById('math-input');
         const feedbackOverlay = document.getElementById('feedback-overlay');
         const tipsModal = document.getElementById('tips-modal');
+        const breakdownWrapper = document.getElementById('breakdown-wrapper');
 
         function toggleTips() { tipsModal.classList.toggle('hidden'); }
         function showMenu() { gameScreen.classList.add('hidden'); startScreen.classList.remove('hidden'); }
+        function clearInput() { mathInput.value = ''; mathInput.focus(); }
+        
+        function insertMath(char) {
+            const start = mathInput.selectionStart;
+            const end = mathInput.selectionEnd;
+            const val = mathInput.value;
+            mathInput.value = val.substring(0, start) + char + val.substring(end);
+            mathInput.selectionStart = mathInput.selectionEnd = start + char.length;
+            mathInput.focus();
+        }
 
         function startGame(diff) {
             currentDifficulty = diff;
-            levelIndex = 0;
             score = 0;
             updateScore();
             startScreen.classList.add('hidden');
@@ -206,10 +335,13 @@
         }
 
         function loadLevel() {
-            const list = levels[currentDifficulty];
-            if (levelIndex >= list.length) levelIndex = 0;
-            document.getElementById('sentence').innerText = `"${list[levelIndex].s}"`;
+            const pool = generators[currentDifficulty];
+            currentQuestion = pool[Math.floor(Math.random() * pool.length)]();
+            currentQuestion.s = currentQuestion.parts.map(p => p.text).join(' ');
+            
+            document.getElementById('sentence').innerText = `"${currentQuestion.s}"`;
             mathInput.value = '';
+            breakdownWrapper.innerHTML = '';
             feedbackOverlay.classList.add('hidden');
             setTimeout(() => mathInput.focus(), 100);
         }
@@ -217,68 +349,156 @@
         function updateScore() { document.getElementById('score').innerText = score; }
 
         function normalize(str) {
-            return str.toLowerCase().replace(/\s+/g, '').replace(/[\*]/g, '').replace(/<=/g, '≤').replace(/>=/g, '≥');
+            return str.toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/[\*]/g, '')
+                .replace(/<=/g, '≤').replace(/=</g, '≤')
+                .replace(/>=/g, '≥').replace(/=>/g, '≥');
         }
 
         function checkAnswer() {
-            const current = levels[currentDifficulty][levelIndex];
+            if(!currentQuestion || !mathInput.value.trim()) return;
             const val = normalize(mathInput.value);
-            const isCorrect = current.a.some(ans => normalize(ans) === val);
+            const isCorrect = currentQuestion.a.some(ans => normalize(ans) === val);
             showFeedback(isCorrect);
+        }
+
+        // --- Whimsical Mochi & Messaging ---
+        const messages = {
+            success: [
+                "100% Way to go!",
+                "(すごい！): Awesome!",
+                "Success! You are a hero and I love you.",
+                "Perfect! You're a math wizard! ✨",
+                "Yes! The Mochis are cheering for you!"
+            ],
+            fail: [
+                "Baka! (ばか) – Fool!",
+                "That's OK! Do your best!",
+                "Oh no! Try again?",
+                "Not quite! Check the translation guide.",
+                "Whoops! The Mochi is sad. Let's fix it!"
+            ]
+        };
+
+        function getMochiSVG(type) {
+            const svgStart = `<svg width="100%" height="100%" viewBox="0 0 120 100">`;
+            const highlight = `<ellipse cx="60" cy="20" rx="30" ry="8" fill="#ffffff" opacity="0.6"/>`;
+            const cheeks = `<circle cx="25" cy="65" r="9" fill="#f43f5e" opacity="0.8"/> <circle cx="95" cy="65" r="9" fill="#f43f5e" opacity="0.8"/>`;
+            
+            if (type === 'happy_yellow') {
+                return `${svgStart}
+                    <path d="M10,80 C10,10 110,10 110,80 C110,100 10,100 10,80 Z" fill="#fde047" stroke="#4c1d95" stroke-width="3"/>
+                    ${highlight}
+                    <ellipse cx="40" cy="55" rx="10" ry="14" fill="#4c1d95"/>
+                    <circle cx="37" cy="48" r="4" fill="#ffffff"/> <circle cx="43" cy="58" r="2" fill="#ffffff"/>
+                    <ellipse cx="80" cy="55" rx="10" ry="14" fill="#4c1d95"/>
+                    <circle cx="77" cy="48" r="4" fill="#ffffff"/> <circle cx="83" cy="58" r="2" fill="#ffffff"/>
+                    <path d="M52,65 Q60,80 68,65 Z" fill="#fb7185" stroke="#4c1d95" stroke-width="2"/>
+                    ${cheeks}
+                </svg>`;
+            } else if (type === 'happy_pink') {
+                return `${svgStart}
+                    <path d="M10,80 C10,10 110,10 110,80 C110,100 10,100 10,80 Z" fill="#f9a8d4" stroke="#4c1d95" stroke-width="3"/>
+                    ${highlight}
+                    <path d="M30,55 Q40,45 50,55" fill="none" stroke="#4c1d95" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M70,55 Q80,45 90,55" fill="none" stroke="#4c1d95" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M55,68 Q60,75 65,68" fill="none" stroke="#4c1d95" stroke-width="3" stroke-linecap="round"/>
+                    ${cheeks}
+                </svg>`;
+            } else if (type === 'angry_pink') {
+                return `${svgStart}
+                    <path d="M10,80 C10,10 110,10 110,80 C110,100 10,100 10,80 Z" fill="#fb7185" stroke="#4c1d95" stroke-width="3"/>
+                    ${highlight}
+                    <path d="M25,48 L48,55" stroke="#4c1d95" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M95,48 L72,55" stroke="#4c1d95" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="40" cy="60" r="7" fill="#4c1d95"/> <circle cx="42" cy="58" r="2" fill="#ffffff"/>
+                    <circle cx="80" cy="60" r="7" fill="#4c1d95"/> <circle cx="82" cy="58" r="2" fill="#ffffff"/>
+                    <path d="M55,75 Q60,68 65,75" fill="none" stroke="#4c1d95" stroke-width="3" stroke-linecap="round"/>
+                    ${cheeks}
+                </svg>`;
+            } else if (type === 'sad_yellow') {
+                return `${svgStart}
+                    <path d="M10,80 C10,10 110,10 110,80 C110,100 10,100 10,80 Z" fill="#fcd34d" stroke="#4c1d95" stroke-width="3"/>
+                    ${highlight}
+                    <path d="M30,55 Q40,50 50,55" fill="none" stroke="#4c1d95" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M70,55 Q80,50 90,55" fill="none" stroke="#4c1d95" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="60" cy="68" r="2.5" fill="#4c1d95"/>
+                    ${cheeks}
+                    <path d="M40,65 Q45,75 40,85 Q35,75 40,65 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" class="tear"/>
+                </svg>`;
+            }
         }
 
         function showFeedback(correct) {
             feedbackOverlay.classList.remove('hidden');
             const container = document.getElementById('mochi-feedback-container');
-            const text = document.getElementById('feedback-text');
+            const textEl = document.getElementById('feedback-text');
             const nextBtn = document.getElementById('next-btn');
             
             if (correct) {
                 score += 10;
                 updateScore();
-                text.innerText = "Success! You are a hero and I love you.";
+                
+                const mochiType = Math.random() > 0.5 ? 'happy_yellow' : 'happy_pink';
+                container.innerHTML = `<div class="animate-wiggle w-full h-full">${getMochiSVG(mochiType)}</div>`;
+                
+                textEl.innerText = messages.success[Math.floor(Math.random() * messages.success.length)];
+                textEl.className = "text-lg sm:text-xl font-bold text-pink-500 font-sans";
+                
+                // Inject the structured breakdown logic
+                breakdownWrapper.innerHTML = `
+                    <div class="mt-4 bg-indigo-50/50 p-2 sm:p-4 rounded-2xl border-4 border-indigo-100 shadow-inner w-full mx-auto font-sans">
+                        <div class="flex justify-between gap-1 sm:gap-2 text-xs sm:text-sm font-bold text-gray-700">
+                            <div class="flex-1 text-center leading-tight flex items-end justify-center pb-1">${currentQuestion.parts[0].text}</div>
+                            <div class="flex-1 text-center leading-tight flex items-end justify-center pb-1">${currentQuestion.parts[1].text}</div>
+                            <div class="flex-1 text-center leading-tight flex items-end justify-center pb-1">${currentQuestion.parts[2].text}</div>
+                        </div>
+                        <div class="flex justify-between gap-1 sm:gap-2 mt-1">
+                            <div class="flex-1"><svg width="100%" height="12" preserveAspectRatio="none" viewBox="0 0 100 15" class="text-indigo-300"><path d="M0,0 Q0,10 10,10 L40,10 Q50,10 50,15 Q50,10 60,10 L90,10 Q100,10 100,0" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
+                            <div class="flex-1"><svg width="100%" height="12" preserveAspectRatio="none" viewBox="0 0 100 15" class="text-indigo-300"><path d="M0,0 Q0,10 10,10 L40,10 Q50,10 50,15 Q50,10 60,10 L90,10 Q100,10 100,0" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
+                            <div class="flex-1"><svg width="100%" height="12" preserveAspectRatio="none" viewBox="0 0 100 15" class="text-indigo-300"><path d="M0,0 Q0,10 10,10 L40,10 Q50,10 50,15 Q50,10 60,10 L90,10 Q100,10 100,0" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
+                        </div>
+                        <div class="flex justify-between gap-1 sm:gap-2 mt-1 text-base sm:text-xl font-black text-pink-500">
+                            <div class="flex-1 text-center">${currentQuestion.parts[0].sym}</div>
+                            <div class="flex-1 text-center">${currentQuestion.parts[1].sym}</div>
+                            <div class="flex-1 text-center">${currentQuestion.parts[2].sym}</div>
+                        </div>
+                        <div class="mt-1 px-4">
+                            <svg width="100%" height="15" preserveAspectRatio="none" viewBox="0 0 100 20" class="text-pink-300"><path d="M0,0 Q0,10 10,10 L45,10 Q50,10 50,20 Q50,10 55,10 L90,10 Q100,10 100,0" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+                        </div>
+                        <div class="mt-2 text-2xl sm:text-3xl font-black text-indigo-700 tracking-wider">
+                            ${currentQuestion.final}
+                        </div>
+                    </div>
+                `;
+                
                 nextBtn.innerText = "YAY! MORE!";
-                nextBtn.className = "btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-green-500 text-white";
+                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-green-400 text-white hover:bg-green-500 flex-shrink-0";
                 
-                container.innerHTML = `
-                    <div class="animate-dance">
-                        <svg width="150" height="120" viewBox="0 0 120 100">
-                            <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#86efac" stroke="#1a2e1a" stroke-width="4"/>
-                            <path d="M35,50 Q40,40 45,50" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M75,50 Q80,40 85,50" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M50,70 Q60,85 70,70" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="30" cy="65" r="7" fill="#fecaca" opacity="0.8"/>
-                            <circle cx="90" cy="65" r="7" fill="#fecaca" opacity="0.8"/>
-                        </svg>
-                    </div>
-                `;
             } else {
-                text.innerText = "Oh no... I'm a bit sad. Let's try again?";
-                nextBtn.innerText = "I WILL FIX IT!";
-                nextBtn.className = "btn-kawaii px-10 py-4 rounded-3xl text-xl font-bold uppercase bg-gray-500 text-white";
+                const mochiType = Math.random() > 0.5 ? 'angry_pink' : 'sad_yellow';
+                container.innerHTML = `<div class="animate-sad relative w-full h-full">${getMochiSVG(mochiType)}</div>`;
                 
-                container.innerHTML = `
-                    <div class="animate-sad relative">
-                        <svg width="150" height="120" viewBox="0 0 120 100">
-                            <path d="M10,80 Q10,20 60,20 Q110,20 110,80 Q110,95 60,95 Q10,95 10,80 Z" fill="#bbf7d0" stroke="#1a2e1a" stroke-width="4"/>
-                            <path d="M35,55 L45,45 M35,45 L45,55" fill="none" stroke="#1a2e1a" stroke-width="2"/>
-                            <path d="M75,55 L85,45 M75,45 L85,55" fill="none" stroke="#1a2e1a" stroke-width="2"/>
-                            <path d="M50,75 Q60,65 70,75" fill="none" stroke="#1a2e1a" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Tears -->
-                            <circle cx="35" cy="65" r="3" fill="#60a5fa" class="tear"/>
-                            <circle cx="85" cy="65" r="3" fill="#60a5fa" class="tear" style="animation-delay: 0.5s"/>
-                        </svg>
-                    </div>
-                `;
+                textEl.innerText = messages.fail[Math.floor(Math.random() * messages.fail.length)];
+                textEl.className = "text-lg sm:text-xl font-bold text-indigo-800 font-sans mt-2";
+                breakdownWrapper.innerHTML = '';
+                
+                nextBtn.innerText = "I WILL FIX IT!";
+                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-indigo-400 text-white hover:bg-indigo-500 flex-shrink-0";
             }
         }
 
         function nextLevel() {
-            const current = levels[currentDifficulty][levelIndex];
             const val = normalize(mathInput.value);
-            const isCorrect = current.a.some(ans => normalize(ans) === val);
-            if (isCorrect) levelIndex++;
-            loadLevel();
+            const isCorrect = currentQuestion.a.some(ans => normalize(ans) === val);
+            
+            if (isCorrect) {
+                loadLevel(); 
+            } else {
+                feedbackOverlay.classList.add('hidden');
+                mathInput.focus(); 
+            }
         }
 
         mathInput.addEventListener('keypress', (e) => {
@@ -287,6 +507,7 @@
                 else nextLevel();
             }
         });
+
     </script>
 </body>
 </html>
