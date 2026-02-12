@@ -85,32 +85,10 @@
             100% { transform: translateY(40px) scale(0.7); opacity: 0; }
         }
 
-        @keyframes float-particle {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
         .animate-bounce-whimsy { animation: mochi-bounce 1s infinite ease-in-out; }
         .animate-wiggle { animation: mochi-wiggle 1.5s infinite ease-in-out; }
         .animate-sad { animation: mochi-sad 0.5s infinite; }
         .tear { animation: tear-fall 1.2s infinite ease-in; }
-
-        .bg-particles {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            font-size: 2rem;
-            animation: float-particle 10s linear infinite;
-            opacity: 0;
-        }
 
         .modal-overlay {
             background: rgba(255, 255, 255, 0.6);
@@ -125,10 +103,7 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-2 sm:p-4">
 
-    <!-- Whimsical Background Particles -->
-    <div class="bg-particles" id="particles-container"></div>
-
-    <div id="game-container" class="w-full max-w-2xl z-10">
+    <div id="game-container" class="w-full max-w-[800px] z-10">
         <!-- Start Screen -->
         <div id="start-screen" class="kawaii-card p-6 sm:p-8 text-center space-y-6">
             <h1 class="text-4xl sm:text-5xl text-pink-500 mb-2 drop-shadow-sm uppercase tracking-tight">Mochi Math</h1>
@@ -202,10 +177,10 @@
             </div>
 
             <!-- Feedback Overlay -->
-            <div id="feedback-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden z-50 p-4 sm:p-8 text-center backdrop-blur-sm overflow-y-auto">
+            <div id="feedback-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden z-50 p-4 sm:p-8 text-center backdrop-blur-sm overflow-y-auto overflow-x-hidden">
                 <div id="mochi-feedback-container" class="w-48 h-36 sm:w-56 sm:h-48 flex items-center justify-center mb-2 mt-4 flex-shrink-0"></div>
                 
-                <div class="relative bg-white border-4 border-black p-4 sm:p-5 rounded-3xl text-center my-2 max-w-sm w-full shadow-[8px_8px_0px_rgba(0,0,0,1)] flex-shrink-0">
+                <div class="relative bg-white border-4 border-black p-4 sm:p-5 rounded-3xl text-center my-2 max-w-md w-[95%] shadow-[8px_8px_0px_rgba(0,0,0,1)] flex-shrink-0">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-t-4 border-l-4 border-black rotate-45"></div>
                     <p id="feedback-text" class="text-lg sm:text-xl font-bold"></p>
                     
@@ -213,7 +188,7 @@
                     <div id="breakdown-wrapper"></div>
                 </div>
                 
-                <button id="next-btn" onclick="nextLevel()" class="btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] flex-shrink-0"></button>
+                <button id="next-btn" onclick="nextLevel()" class="btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-[90%] max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] flex-shrink-0"></button>
             </div>
         </div>
     </div>
@@ -245,20 +220,6 @@
     </div>
 
     <script>
-        // --- Whimsical Background Setup ---
-        const emojis = ['✨', '🫧', '🍡', '🌸', '⭐', '☁️', '🎀'];
-        const container = document.getElementById('particles-container');
-        for(let i=0; i<15; i++) {
-            let el = document.createElement('div');
-            el.className = 'particle';
-            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            el.style.left = `${Math.random() * 100}vw`;
-            el.style.animationDuration = `${8 + Math.random() * 10}s`;
-            el.style.animationDelay = `${Math.random() * 10}s`;
-            el.style.fontSize = `${1 + Math.random() * 2}rem`;
-            container.appendChild(el);
-        }
-
         // --- Number to Word Converter ---
         const ones = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
         const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
@@ -281,19 +242,19 @@
                 () => { let n = randInt(2, 20); return { parts: [{text: "negative "+numToWord(n), sym: `-${n}`}, {text: "plus", sym: "+"}, {text: "an unknown", sym: "x"}], a: [`-${n}+x`, `x-${n}`], final: `-${n} + x` }; },
                 () => { let n = randInt(2, 20); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "added to", sym: "+"}, {text: "twice a number", sym: "2x"}], a: [`2x+${n}`, `${n}+2x`], final: `2x + ${n}` }; },
                 () => { let n = randInt(20, 99); return { parts: [{text: numToWord(n), sym: n.toString()}, {text: "is subtracted from", sym: "-"}, {text: "some quantity", sym: "x"}], a: [`x-${n}`], final: `x - ${n}` }; },
-            () => { return { parts: [{text: "a quarter", sym: "1/4"}, {text: "of", sym: "*"}, {text: "a number", sym: "x"}], a: [`1/4x`, `x/4`, `0.25x`, `(1/4)x`], final: `1/4 x` }; }
-        ],
-        medium: [
-            () => { let n = randInt(2, 20); return { parts: [{text: "twice a number", sym: "2x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`2x=${n}`], final: `2x = ${n}` }; },
-            () => { let n = randInt(2, 50); return { parts: [{text: "four ninths of a number", sym: "4/9x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`4/9x=${n}`, `(4/9)x=${n}`, `4x/9=${n}`], final: `4/9x = ${n}` }; },
-            () => { let n = randInt(2, 20); return { parts: [{text: "three times a number", sym: "3x"}, {text: "is", sym: "="}, {text: `${numToWord(n)} more than twice the number`, sym: `2x + ${n}`}], a: [`3x=2x+${n}`, `3x=${n}+2x`], final: `3x = 2x + ${n}` }; },
+                () => { return { parts: [{text: "a quarter", sym: "1/4"}, {text: "of", sym: "*"}, {text: "a number", sym: "x"}], a: [`1/4x`, `x/4`, `0.25x`, `(1/4)x`], final: `1/4 x` }; }
+            ],
+            medium: [
+                () => { let n = randInt(2, 20); return { parts: [{text: "twice a number", sym: "2x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`2x=${n}`], final: `2x = ${n}` }; },
+                () => { let n = randInt(2, 50); return { parts: [{text: "four ninths of a number", sym: "4/9x"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`4/9x=${n}`, `(4/9)x=${n}`, `4x/9=${n}`], final: `4/9x = ${n}` }; },
+                () => { let n = randInt(2, 20); return { parts: [{text: "three times a number", sym: "3x"}, {text: "is", sym: "="}, {text: `${numToWord(n)} more than twice the number`, sym: `2x + ${n}`}], a: [`3x=2x+${n}`, `3x=${n}+2x`], final: `3x = 2x + ${n}` }; },
                 () => { let n1 = randInt(2, 20), n2 = randInt(20, 99); return { parts: [{text: `ten times a number less ${numToWord(n1)}`, sym: `10x - ${n1}`}, {text: "results in", sym: "="}, {text: numToWord(n2), sym: n2.toString()}], a: [`10x-${n1}=${n2}`], final: `10x - ${n1} = ${n2}` }; },
                 () => { let n = randInt(10, 99); return { parts: [{text: "a number divided by four", sym: "x/4"}, {text: "is", sym: "="}, {text: numToWord(n), sym: n.toString()}], a: [`x/4=${n}`], final: `x/4 = ${n}` }; }
             ],
             hard: [
-            () => { let n1 = randInt(2, 20), n2 = randInt(10, 50); return { parts: [{text: `a number increased by ${numToWord(n1)}`, sym: `x + ${n1}`}, {text: "is at most", sym: "≤"}, {text: numToWord(n2), sym: n2.toString()}], a: [`x+${n1}<=${n2}`, `x+${n1}≤${n2}`, `${n1}+x<=${n2}`, `${n1}+x≤${n2}`], final: `x + ${n1} ≤ ${n2}` }; },
-            () => { let n = randInt(10, 99); return { parts: [{text: "half a number", sym: "x/2"}, {text: "is greater than", sym: ">"}, {text: numToWord(n), sym: n.toString()}], a: [`x/2>${n}`, `0.5x>${n}`, `1/2x>${n}`, `(1/2)x>${n}`], final: `x/2 > ${n}` }; },
-            () => { let n1 = randInt(2, 20), n2 = randInt(5, 50); return { parts: [{text: `four times a number plus ${numToWord(n1)}`, sym: `4x + ${n1}`}, {text: "is less than", sym: "<"}, {text: numToWord(n2), sym: n2.toString()}], a: [`4x+${n1}<${n2}`], final: `4x + ${n1} < ${n2}` }; },
+                () => { let n1 = randInt(2, 20), n2 = randInt(10, 50); return { parts: [{text: `a number increased by ${numToWord(n1)}`, sym: `x + ${n1}`}, {text: "is at most", sym: "≤"}, {text: numToWord(n2), sym: n2.toString()}], a: [`x+${n1}<=${n2}`, `x+${n1}≤${n2}`, `${n1}+x<=${n2}`, `${n1}+x≤${n2}`], final: `x + ${n1} ≤ ${n2}` }; },
+                () => { let n = randInt(10, 99); return { parts: [{text: "half a number", sym: "x/2"}, {text: "is greater than", sym: ">"}, {text: numToWord(n), sym: n.toString()}], a: [`x/2>${n}`, `0.5x>${n}`, `1/2x>${n}`, `(1/2)x>${n}`], final: `x/2 > ${n}` }; },
+                () => { let n1 = randInt(2, 20), n2 = randInt(5, 50); return { parts: [{text: `four times a number plus ${numToWord(n1)}`, sym: `4x + ${n1}`}, {text: "is less than", sym: "<"}, {text: numToWord(n2), sym: n2.toString()}], a: [`4x+${n1}<${n2}`], final: `4x + ${n1} < ${n2}` }; },
                 () => { let n = randInt(5, 30); return { parts: [{text: "the ratio of a number and three", sym: "x/3"}, {text: "is at least", sym: "≥"}, {text: numToWord(n), sym: n.toString()}], a: [`x/3>=${n}`, `x/3≥${n}`], final: `x/3 ≥ ${n}` }; },
                 () => { let n1 = randInt(2, 20), n2 = randInt(5, 25); return { parts: [{text: `the difference of a number and ${numToWord(n1)}`, sym: `x - ${n1}`}, {text: "is less than", sym: "<"}, {text: numToWord(n2), sym: n2.toString()}], a: [`x-${n1}<${n2}`], final: `x - ${n1} < ${n2}` }; }
             ]
@@ -474,7 +435,7 @@
                 `;
                 
                 nextBtn.innerText = "YAY! MORE!";
-                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-green-400 text-white hover:bg-green-500 flex-shrink-0";
+                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-[90%] max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-green-400 text-white hover:bg-green-500 flex-shrink-0";
                 
             } else {
                 const mochiType = Math.random() > 0.5 ? 'angry_pink' : 'sad_yellow';
@@ -485,7 +446,7 @@
                 breakdownWrapper.innerHTML = '';
                 
                 nextBtn.innerText = "I WILL FIX IT!";
-                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-full max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-indigo-400 text-white hover:bg-indigo-500 flex-shrink-0";
+                nextBtn.className = "btn-kawaii px-8 py-4 mt-2 mb-4 rounded-3xl text-xl font-bold uppercase w-[90%] max-w-xs shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-indigo-400 text-white hover:bg-indigo-500 flex-shrink-0";
             }
         }
 
